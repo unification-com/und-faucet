@@ -34,14 +34,14 @@ module.exports = function (app) {
 		}
 		const receiver = request.body.receiver
 		if (await validateCaptchaResponse(captchaResponse, receiver, response)) {
-			await sendPOAToRecipient(web3, receiver, response, isDebug)
+			await sendUNDToRecipient(web3, receiver, response, isDebug)
 		}
 	});
 
 	app.get('/health', async function(request, response) {
 		let balanceInWei
 		let balanceInEth
-		const address = config.Ethereum[config.environment].account
+		const address = config.UND[config.environment].account
 		try {
 			balanceInWei = await web3.eth.getBalance(address)
 			balanceInEth = await web3.utils.fromWei(balanceInWei, "ether")
@@ -66,8 +66,8 @@ module.exports = function (app) {
 		return true
 	}
 
-	async function sendPOAToRecipient(web3, receiver, response, isDebug) {
-		let senderPrivateKey = config.Ethereum[config.environment].privateKey
+	async function sendUNDToRecipient(web3, receiver, response, isDebug) {
+		let senderPrivateKey = config.UND[config.environment].privateKey
 		const privateKeyHex = Buffer.from(senderPrivateKey, 'hex')
 		if (!web3.utils.isAddress(receiver)) {
 			return generateErrorResponse(response, {message: messages.INVALID_ADDRESS})
@@ -75,11 +75,11 @@ module.exports = function (app) {
 		
 		const gasPrice = web3.utils.toWei('1', 'gwei')
 		const gasPriceHex = web3.utils.toHex(gasPrice)
-		const gasLimitHex = web3.utils.toHex(config.Ethereum.gasLimit)
-		const nonce = await web3.eth.getTransactionCount(config.Ethereum[config.environment].account)
+		const gasLimitHex = web3.utils.toHex(config.UND.gasLimit)
+		const nonce = await web3.eth.getTransactionCount(config.UND[config.environment].account)
 		const nonceHex = web3.utils.toHex(nonce)
 		const BN = web3.utils.BN
-		const ethToSend = web3.utils.toWei(new BN(config.Ethereum.milliEtherToTransfer), "milliether")
+		const ethToSend = web3.utils.toWei(new BN(config.UND.milliUndToTransfer), "milliether")
 		const rawTx = {
 		  nonce: nonceHex,
 		  gasPrice: gasPriceHex,
@@ -120,7 +120,8 @@ module.exports = function (app) {
 			code: 200, 
 			title: 'Success', 
 			message: messages.TX_HAS_BEEN_MINED,
-			txHash: txHash
+			txHash: txHash,
+			explorerUrl: config.UND[config.environment].block_explorer
 		}
 	  	
 	  	response.send({
