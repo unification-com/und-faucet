@@ -4,13 +4,14 @@
   "Captcha": {
     "secret": ""
   },
-  "Ethereum": {
-    "milliEtherToTransfer": 500,
+  "UND": {
+    "milliUndToTransfer": 500,
     "gasLimit": "21000",
     "prod": {
       "rpc": "http://127.0.0.1:8545",
       "account": "",
-      "privateKey": ""
+      "privateKey": "",
+      "block_explorer": "http://127.0.0.1:8080"
     }
   }
 }
