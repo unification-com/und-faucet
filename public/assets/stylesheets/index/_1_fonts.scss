@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'Open Sans';
+  font-family: 'Droid Sans';
   font-style: normal;
   font-weight: 400;
   src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3ZBw1xU1rKptJj_0jans920.woff2) format('woff2');
@@ -7,7 +7,7 @@
 }
 
 @font-face {
-  font-family: 'Open Sans';
+  font-family: 'Droid Sans';
   font-style: normal;
   font-weight: 700;
   src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzBampu5_7CjHW5spxoeN3Vs.woff2) format('woff2');
@@ -19,6 +19,6 @@ body {
   color: #333;
   line-height: 1;
   font-size: 14px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Droid Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
