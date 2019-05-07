@@ -11,7 +11,10 @@
       "rpc": "http://127.0.0.1:8545",
       "account": "",
       "privateKey": "",
-      "block_explorer": "http://127.0.0.1:8080"
+      "block_explorer": "http://127.0.0.1:8080",
+      "ssl_cert": "/path/to/cert.crt",
+      "ssl_key": "/path/to/key.key",
+      "port": 5000
     }
   }
 }

@@ -30,7 +30,10 @@
       "rpc": "JSON RPC endpoint. For example, https://rpc.testnet.unification.com",
       "account": "The address from which the funds will be drained",
       "privateKey": "Private key of the account",
-      "block_explorer": "Block explorer URL
+      "block_explorer": "Block explorer URL,
+      "ssl_cert": "/path/to/cert.crt",
+      "ssl_key": "/path/to/key.key",
+      "port": 5000
     },
     "dev": {
       ...
