@@ -38,7 +38,7 @@ app.configureWeb3(config)
 
 	let listenPort = config.UND[config.environment].port || 5000;
 
-	if app.config.UND[config.environment].ssl == true {
+	if (app.config.UND[config.environment].ssl == true) {
 	    var httpsOptions = {
         key: fs.readFileSync(app.config.UND[config.environment].ssl_key, 'utf8'),
         cert: fs.readFileSync(app.config.UND[config.environment].ssl_cert, 'utf8')
