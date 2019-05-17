@@ -1,5 +1,6 @@
 const express = require('express')
 const https = require('https')
+const http = require('http')
 const fs = require('fs')
 const bodyParser = require('body-parser')
 let app = express();
@@ -35,15 +36,26 @@ app.configureWeb3(config)
 	  response.send('UND Testnet faucet')
 	});
 
-	var httpsOptions = {
-    key: fs.readFileSync(app.config.UND[config.environment].ssl_key, 'utf8'),
-    cert: fs.readFileSync(app.config.UND[config.environment].ssl_cert, 'utf8')
-  };
-	const httpsServer =  https.createServer(httpsOptions, app);
+	let listenPort = config.UND[config.environment].port || 5000;
 
-  httpsServer.listen(config.UND[config.environment].port || 5000, () => {
-	    console.log('HTTPS Server running on port 5000');
-  });
+	if app.config.UND[config.environment].ssl == true {
+	    var httpsOptions = {
+        key: fs.readFileSync(app.config.UND[config.environment].ssl_key, 'utf8'),
+        cert: fs.readFileSync(app.config.UND[config.environment].ssl_cert, 'utf8')
+      };
+	    const httpsServer =  https.createServer(httpsOptions, app);
+
+      httpsServer.listen(listenPort, () => {
+	        console.log('HTTPS Server running on port ' + listenPort);
+      });
+	} else {
+	    const httpServer =  http.createServer(app);
+	    httpServer.listen(listenPort, () => {
+	        console.log('HTTP Server running on port ' + listenPort);
+      });
+	}
+
+
 })
 .catch(error => {
 	return console.log(error)
